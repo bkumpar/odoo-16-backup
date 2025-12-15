@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backup:
+    build: .
+    container_name: odoo16-backup
+    environment:
+      - PGHOST=odoo16-db
+      - PGPORT=5432
+      - PGUSER=odoo
+      - PGPASSWORD=odoo
+      - BACKUP_DIR=/backup
+      - FILESTORE_VOLUME=/var/lib/odoo/filestore
+    volumes:
+      - odoo-16_odoo-data:/var/lib/odoo:ro
+      - ./backup_output:/backup
+    entrypoint: ["/usr/local/bin/backup.sh"]
+    networks:
+      - odoo_network
+
+volumes:
+  odoo-16_odoo-data:
+    external: true
+
+networks:
+  odoo_network:
+    external:
+      name: odoo-16_default  # <-- replace with your actual network name
