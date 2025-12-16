@@ -7,8 +7,8 @@ services:
     environment:
       - PGHOST=odoo16-db
       - PGPORT=5432
-      - PGUSER=odoo
-      - PGPASSWORD=odoo
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
       - BACKUP_DIR=/backup
       - FILESTORE_VOLUME=/var/lib/odoo/filestore
     volumes:
